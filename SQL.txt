@@ -1,0 +1,41 @@
+-- CRIA A TABELA DE PRODUTOS
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    preco NUMERIC(10, 2) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    url_imagem TEXT
+);
+
+-- CRIA A TABELA PARA RASTREAR OS CLIENTES DA ROLETA
+CREATE TABLE clientes_anonimos (
+    id SERIAL PRIMARY KEY,
+    client_id UUID UNIQUE NOT NULL,
+    ultimo_giro_roleta TIMESTAMP WITH TIME ZONE
+);
+
+-- CRIA A TABELA PARA GUARDAR OS DESCONTOS ATIVOS
+CREATE TABLE descontos_ativos_anonimos (
+    id SERIAL PRIMARY KEY,
+    client_id UUID NOT NULL,
+    categoria_desconto VARCHAR(100) NOT NULL,
+    percentual_desconto NUMERIC(5, 2) NOT NULL,
+    data_expiracao TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE INDEX idx_descontos_ativos_client_id ON descontos_ativos_anonimos(client_id);
+
+-- INSERE OS PRODUTOS DE EXEMPLO NO BANCO
+INSERT INTO produtos (nome, descricao, preco, categoria, url_imagem) VALUES
+('Pão Francês Fresquinho', 'Tradicional pão francês assado na hora.', 0.80, 'Padaria', 'https://conteudo.imguol.com.br/c/entretenimento/65/2020/10/19/pao-frances-1603114029092_v2_4x3.jpg'),
+('Bolo de Chocolate Artesanal', 'Delicioso bolo de chocolate com cobertura cremosa.', 25.99, 'Padaria', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRONuNfcFx0X33jkgY6TMlVTqmawk8AtSzsFg&s'),
+('Leite Integral Longa Vida', 'Puro e nutritivo, essencial para sua família.', 5.80, 'Laticínios e Cereais', 'https://shoppr.com.br/cdn/shop/products/Imagem8_d0942472-c732-4e47-b9b1-b41dfb3a1d8e.png?v=1545049563'),
+('Cereal Matinal Crocante', 'Com fibras e vitaminas para um café da manhã energético.', 15.99, 'Laticínios e Cereais', 'https://giassi.vtexassets.com/arquivos/ids/2041386/Cereal-Matinal-Chocolate-Crunch-Nestle-Sache-120g.png?v=638588848074700000'),
+('Maçãs Fuji (kg)', 'Maçãs frescas e crocantes, ideais para lanches.', 7.99, 'Hortifrúti', 'https://superprix.vteximg.com.br/arquivos/ids/175177/Maca-Fuji--1-unidade-aprox.-200g-.png?v=636294176957700000'),
+('Alface Crespa Orgânica', 'Fresca e crocante, direto da horta para sua mesa.', 3.00, 'Hortifrúti', 'https://www.atlantikos.com.br/wp-content/uploads/2025/02/AXA_Ifood-159.png'),
+('Picanha Bovina Resfriada (kg)', 'Corte nobre para seu churrasco. Qualidade garantida.', 69.90, 'Carnes e Frios', 'https://giassi.vtexassets.com/arquivos/ids/2046389/Picanha-Bovina-Resfriada-sem-Osso-Montana-Kg.png?v=638589124941270000'),
+('Peito de Frango Congelado (kg)', 'Macio e suculento, ideal para diversas receitas.', 19.50, 'Carnes e Frios', 'https://www.seara.com.br/wp-content/uploads/2024/08/File-de-Peito-Seara-1kg-1.webp'),
+('Suco de Laranja Natural 1L', '100% puro, sem adição de açúcar.', 8.99, 'Bebidas', 'https://obahortifruti.vtexassets.com/arquivos/ids/6148742/Suco-De-Laranja-Sem-Casca-Oba-Bem-Querer-1l.png?v=638456683184600000'),
+('Refrigerante Cola Zero Açúcar (2L)', 'Sabor intenso e refrescante, sem calorias.', 6.50, 'Bebidas', 'https://superrissul.vtexassets.com/arquivos/ids/793051/Refrigerante-CocaCola-sem-Acar-Pet-2L.png?v=638869854761730000'),
+('Mini Pizza Congelada', 'Saborosa e prática para um lanche rápido.', 12.00, 'Congelados', 'https://giassi.vtexassets.com/arquivos/ids/2754395/Pizza-Frango-com-Bacon-e-Creme-de-Requeijao-Perdigao-Caixa-460g.png?v=638627497481800000');
