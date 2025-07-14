@@ -6,7 +6,9 @@ npm install cdbreact bootstrap
 npm install react-icons
 npm install react-bootstrap bootstrap react-icons
 npm i react-router-dom
+npm install axios
 ```
+
 ### Figma:
 
 ```
